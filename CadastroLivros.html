@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <center>
+            <section>
+                <form>
+                    <input type="text" placeholder="Titulo" id="Titulo"><br>
+                    <input type="text" placeholder="Autor" id="Autor"><br>
+                    <input type="text" placeholder="Editora" id="Editora"><br>
+                    <input type="text" placeholder="Categoria" id="Categoria"><br>
+                    <input type="number" placeholder="Quantidade" id="Quantidade"><br>
+                    <input type="date" placeholder="Ano" id="Ano"><br><br>
+                </form>
+                <button class="side-button" onclick="Cadastrar()">Cadastrar</button>
+                <button class="side-button" onclick="Limpar()">Limpar campos</button>
+                <button class="side-button" onclick="procura(document.getElementById('Titulo').value)">Procurar Titulos</button>
+                <button class="side-button" onclick="apagar()">Apagar Titulos</button>
+                <button class="side-button" onclick="editar()">Editar Titulos</button>
+                <button class="side-button" onclick="Consolee()">Joga para Console</button>
+                <button class="side-button" onclick="Fakes()">Fake</button>
+                <button class="side-button" onclick="PesquisarPorPalavras()">Pesquisar por palavra</button>
+                <div id="divSaida"></div>
+            </section>
+
+            <style>
+
+                input
+                {
+                    font-size: 1.125em;
+                    font-family: monospace;
+                    background: white;
+                    border-radius: 3px;
+                }
+                form
+                {
+                    max-width: 400px;
+                    margin: 0 auto;
+                    display: flex;
+                    flex-direction: column;
+                }
+                body
+                {
+                background-color: rgba(168, 149, 87, 0.39);
+                }
+                section
+                {
+                    background-color: rgb(129, 170, 216);
+                    border-radius: 10px;
+                    padding: 29px;
+                    width: 350px;
+                    margin: auto;
+                    box-shadow: 5px 12px 20px rgb(255, 255, 255);
+                    color: rgba(88, 86, 105, 0.658);
+                }
+                .side-button
+                {
+                    color: rgb(106, 191, 197);
+                }
+                .clicked-button {
+                    color: rgb(41, 44, 44);
+                }
+                footer
+                {
+                    color: rgb(0, 0, 0);
+                    text-align: center;
+                    font-style: italic;
+                }
+            </style>
+
+            <script>
+                document.getElementById('Titulo').focus()
+
+                var Titulo = new Array()
+                var Autor = new Array()
+                var Ano = new Array()
+                var Editora = new Array()
+                var Categoria = new Array()
+                var Quantidade = new Array()
+                var UltimoPesquisado
+                var titulo
+
+                function PesquisarPorPalavras()
+                {
+                    var palavra = document.getElementById('Titulo').value
+                    var indice = -1
+                    var texto = ''
+
+                        for(i = 0; i < Titulo.length; i ++)
+                        {
+                            if (Titulo[i].toUpperCase().includes(palavra.toUpperCase()))
+                            {
+                                indice = i
+                                texto += i + ') ' + Titulo[i] + '\n'
+                            }                                
+                        }
+                        var escolha = Number(prompt('Escolha um numero para apagar/editar:\n' + texto + '\nQual nome apagar? '))
+                        UltimoPesquisado = escolha
+                        document.getElementById('Titulo').value = Titulo[escolha]
+                        document.getElementById('Autor').value = Autor[escolha]
+                        document.getElementById('Editora').value = Editora[escolha]
+                        document.getElementById('Categoria').value = Categoria[escolha]
+                        document.getElementById('Quantidade').value = Quantidade[escolha]
+                        document.getElementById('Ano').value = Ano[escolha]
+                }
+
+                function Fakes()
+                {
+                    Titulo[0] = 'Roberto'
+                    Titulo[1] = 'Marcos'
+                    Titulo[2] = 'Ana'
+                    Titulo[3] = 'Paula'
+                    Autor[0] = 'Roberto'
+                    Autor[1] = 'Marcos'
+                    Autor[2] = 'Ana'
+                    Autor[3] = 'Paula'
+                    Ano[0] = '1111-11-11'
+                    Ano[1] = '2222-02-22'
+                    Ano[2] = '3333-03-30'
+                    Ano[3] = '4444-04-04'
+                    Editora[0] = 'Roberto'
+                    Editora[1] = 'Marcos'
+                    Editora[2] = 'Ana'
+                    Editora[3] = 'Paula'
+                    Categoria[0] = 'Roberto'
+                    Categoria[1] = 'Marcos'
+                    Categoria[2] = 'Ana'
+                    Categoria[3] = 'Paula'
+                    Quantidade[0] = '1'
+                    Quantidade[1] = '2'
+                    Quantidade[2] = '3'
+                    Quantidade[3] = '4'
+                    document.getElementById('Titulo').focus()
+                }
+
+                function Consolee()
+                {
+                    console.log(Titulo)
+                    console.log(Autor)
+                    console.log(Editora)
+                    console.log(Categoria)
+                    console.log(Quantidade)
+                    console.log(Ano)
+                    document.getElementById('Titulo').focus()
+                }
+
+                function editar()
+                {
+                    console.log(UltimoPesquisado)
+                    if (UltimoPesquisado != -1)
+                    {
+                        Titulo[UltimoPesquisado] = document.getElementById('Titulo').value
+                        Autor[UltimoPesquisado] = document.getElementById('Autor').value
+                        Editora[UltimoPesquisado] = document.getElementById('Editora').value
+                        Categoria[UltimoPesquisado] = document.getElementById('Categoria').value
+                        Quantidade[UltimoPesquisado] = document.getElementById('Quantidade').value
+                        Ano[UltimoPesquisado] = document.getElementById('Ano').value
+                        alert('Edição de cadastro realizada com sucesso.')
+                    }else
+                    {
+                        alert('Pesquise por título válido.')
+                    }
+
+                    document.getElementById('Titulo').value = ""
+                    document.getElementById('Autor').value = ""
+                    document.getElementById('Ano').value = ""
+                    document.getElementById('Editora').value = ""
+                    document.getElementById('Categoria').value = ""
+                    document.getElementById('Quantidade').value = ""
+                    document.getElementById('Titulo').focus()
+
+                    UltimoPesquisado = -1
+                }
+                
+                function Limpar()
+                {
+                    document.getElementById('Titulo').value = ""
+                    document.getElementById('Autor').value = ""
+                    document.getElementById('Ano').value = ""
+                    document.getElementById('Editora').value = ""
+                    document.getElementById('Categoria').value = ""
+                    document.getElementById('Quantidade').value = ""
+                    document.getElementById('Titulo').focus()
+                }
+                
+                function procura(titulo)
+                {
+                    var localprocura = -1
+                    for (i = 0; i < Titulo.length; i++)
+                    {
+                        if (Titulo[i].toUpperCase() == titulo.toUpperCase())
+                        {
+                            document.getElementById('Titulo').value = Titulo[i]
+                            document.getElementById('Autor').value = Autor[i]
+                            document.getElementById('Editora').value = Editora[i]
+                            document.getElementById('Categoria').value = Categoria[i]
+                            document.getElementById('Quantidade').value = Quantidade[i]
+                            document.getElementById('Ano').value = Ano[i]
+                            UltimoPesquisado = i
+                            localprocura = i
+                            break;
+                        }
+                    }
+                    return localprocura
+                    document.getElementById('Titulo').focus()
+                }
+                
+                function apagar()
+                {
+                    console.log(UltimoPesquisado)
+                    for (i = UltimoPesquisado; i < Titulo.length - 1; i++)
+                    {
+                        if (UltimoPesquisado != -1)
+                        {
+                            Titulo[i] = Titulo[i + 1]
+                            Autor[i] = Autor[i + 1]
+                            Editora[i] = Editora[i + 1]
+                            Categoria[i] = Categoria[i + 1]
+                            Quantidade[i] = Quantidade[i + 1]
+                            Ano[i] = Ano[i + 1]
+                        }
+                    }
+                    if (UltimoPesquisado != -1)
+                    {
+                        Titulo.length = Titulo.length - 1
+                        Autor.length = Autor.length - 1
+                        Editora.length = Editora.length - 1
+                        Categoria.length = Categoria.length - 1
+                        Quantidade.length = Quantidade.length - 1
+                        Ano.length = Ano.length - 1
+                    }else
+                    {
+                        alert('Pesquise por um título válido.')
+                    }
+
+                    document.getElementById('Titulo').value = ""
+                    document.getElementById('Autor').value = ""
+                    document.getElementById('Ano').value = ""
+                    document.getElementById('Editora').value = ""
+                    document.getElementById('Categoria').value = ""
+                    document.getElementById('Quantidade').value = ""
+                    UltimoPesquisado = -1
+
+                    document.getElementById('Titulo').focus()
+                }
+
+                function Cadastrar()
+                {
+                    var TituloLido = document.getElementById('Titulo').value
+
+                    
+                    if (TituloLido != '')
+                    { 
+                        var pesquisado = procura(TituloLido)
+                        console.log('Pesquisado: ' + pesquisado)
+                            if (pesquisado == -1)
+                            {
+                                Titulo[Titulo.length] = TituloLido
+                                Autor[Autor.length] = document.getElementById('Autor').value
+                                Ano[Ano.length] = document.getElementById('Ano').value
+                                Editora[Editora.length] = document.getElementById('Editora').value
+                                Categoria[Categoria.length] = document.getElementById('Categoria').value
+                                Quantidade[Quantidade.length] = document.getElementById('Quantidade').value
+
+                                document.getElementById('Titulo').value = ""
+                                document.getElementById('Autor').value = ""
+                                document.getElementById('Ano').value = ""
+                                document.getElementById('Editora').value = ""
+                                document.getElementById('Categoria').value = ""
+                                document.getElementById('Quantidade').value = ""
+
+                                document.getElementById('Titulo').focus()
+
+                                alert('Cadastro efetuado com sucesso absurdão!!!!!!!')
+                            }else
+                            {
+                                alert('Erro tallll ' + TituloLido + ' Já foi cadastrado.')
+                                document.getElementById('Titulo').value = ""
+                                document.getElementById('Autor').value = ""
+                                document.getElementById('Ano').value = ""
+                                document.getElementById('Editora').value = ""
+                                document.getElementById('Categoria').value = ""
+                                document.getElementById('Quantidade').value = ""
+
+                                document.getElementById('Titulo').focus()
+
+                            }
+                        
+                    }else
+                    {
+                        alert('Campo "TITULO È OBRIGATÓRIO"')
+                        document.getElementById('Titulo').focus()
+                    }
+                }            
+                
+                document.getElementById('Ano').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        Cadastrar()
+                    }
+                })
+                document.getElementById('Titulo').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        document.getElementById('Autor').focus()
+                    }
+                })
+                document.getElementById('Autor').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        document.getElementById('Editora').focus()
+                    }
+                })
+                document.getElementById('Editora').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        document.getElementById('Categoria').focus()
+                    }
+                })
+                document.getElementById('Categoria').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        document.getElementById('Quantidade').focus()
+                    }
+                })
+                document.getElementById('Quantidade').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        // Code for enter
+                        document.getElementById('Ano').focus()
+                    }
+                })
+            </script>
+        </center>
+    </body>
+    <footer>
+        <p>&copy;Grupo 6: Breno Henrique Minarello, Guilherme Teixeira Lessa de França, Thiago de Melo</p>
+    </footer>
+</html>
